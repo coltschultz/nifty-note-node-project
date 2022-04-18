@@ -13,7 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 
-
 // HTML Requests
 app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname,  './public/notes.html'));
@@ -31,20 +30,14 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname,  './public/index.html'));
 });
 
-// API POST Requests
 
+// API POST Requests
 app.post("/api/notes", (req, res) => {
-    // set id based on what the next index of the array will be
     req.body.id = notes.length.toString();
   
-    // if any data in req.body is incorrect, send 400 error back
-    // if (!validateAnimal(req.body)) {
-    //   res.status(400).send("The animal is not properly formatted.");
-    // } else {
       const note = createNewNote(req.body, notes);
       res.json(note);
       console.log(req.body);
-    // }
   });
 
 // API DELETE Requests
